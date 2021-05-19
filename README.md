@@ -1,4 +1,4 @@
-# Vue 3 + Webpack 5 + Vue Router 4 + TypeScript 4
+# Error Database on Vue
 
 ## Commands
 
