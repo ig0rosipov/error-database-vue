@@ -1,22 +1,25 @@
 <template>
   <div class="template">
-    <data-item :heading="'Название ошибки'" :content="name"></data-item>
-    <data-item :heading="'Описание ошибки'" :content="description"></data-item>
-    <data-item :heading="'Решение ошибки'" :content="solution"></data-item>
-    <data-item
+    <info-field :heading="'Название ошибки'" :content="name"></info-field>
+    <info-field
+      :heading="'Описание ошибки'"
+      :content="description"
+    ></info-field>
+    <info-field :heading="'Решение ошибки'" :content="solution"></info-field>
+    <info-field
       v-if="image"
       :heading="'Изображение'"
-      :content="name"
-    ></data-item>
+      :image="image"
+    ></info-field>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import DataItem from './DataItem.vue';
+import InfoField from './InfoField.vue';
 export default defineComponent({
   name: 'DataTemplate',
   components: {
-    DataItem,
+    InfoField,
   },
   props: {
     item: {
@@ -37,5 +40,4 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-</style>
+<style></style>

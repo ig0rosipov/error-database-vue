@@ -7,8 +7,9 @@
         v-for="(link, index) in links"
         :to="link.url"
         :key="index"
-        >{{ link.name }}</router-link
       >
+        {{ link.name }}
+      </router-link>
     </ul>
   </header>
 </template>

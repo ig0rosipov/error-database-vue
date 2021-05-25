@@ -1,17 +1,17 @@
 <template>
   <div class="item">
     <p class="item__heading">{{ heading }}</p>
-    <div v-if="content && !image" class="item__content">{{ content }}</div>
+    <div v-if="content && !images" class="item__content">{{ content }}</div>
     <div v-else class="item__images">
-      <!-- <img v-for="image in images" src="{{image}}" /> -->
+      <img v-for="(image, index) in images" :key="index" :src="image" />
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'DataItem',
+  name: 'InfoField',
   props: {
     heading: {
       type: String,
@@ -28,5 +28,4 @@ export default defineComponent({
   },
 });
 </script>
-<style>
-</style>
+<style></style>

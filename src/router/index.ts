@@ -1,18 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Author from '../components/Author.vue';
-import ElectricalPage from '../components/ElectricalPage.vue';
-import MechanicalPage from '../components/MechanicalPage.vue';
+import ErrorExplorer from '../components/ErrorExplorer.vue';
 import CreateNotePage from '../components/CreateNotePage.vue';
+import { Machines, Data } from '../data/Data';
 const routes = [
   {
     path: '/electrical',
-    component: ElectricalPage,
+    component: ErrorExplorer,
     name: 'electrical-page',
+    props: {
+      data: Data.filter((item) => item.type === 'electrical'),
+      machines: Machines,
+      title: 'Электрика',
+    },
   },
   {
-    path: '/mechancial',
-    component: MechanicalPage,
+    path: '/mechanical',
+    component: ErrorExplorer,
     name: 'mechanical-page',
+    props: {
+      data: Data.filter((item) => item.type === 'mechanical'),
+      machines: Machines,
+      title: 'Механика',
+    },
   },
   {
     path: '/create',
