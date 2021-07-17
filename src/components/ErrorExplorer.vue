@@ -11,36 +11,33 @@
       <template v-for="item in data" :key="item._id">
         <li v-if="item.machine.name === currentMachine" class="explorer__note">
           <fault-card
-            :name="item.heading"
+            :name="item.name"
             :description="item.description"
             :image="item.images[0]"
+            @click="onCardClick(item)"
           />
-          <!-- <info-field :heading="'Название ошибки'" :content="item.heading" />
-          <info-field
-            :heading="'Описание ошибки'"
-            :content="item.description"
-          />
-          <info-field :heading="'Решение ошибки'" :content="item.solution" />
-          <info-field
-            v-if="item.images.length > 0"
-            :heading="'Изображения'"
-            :images="item.images"
-          /> -->
         </li>
       </template>
     </ul>
   </section>
+  <fault-popup
+    :item="currentCard"
+    :isPopupOpened="isPopupOpened"
+    :setIsPopupOpened="setIsPopupOpened"
+  />
 </template>
+
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import InfoField from './InfoField.vue';
 import FaultCard from './FaultCard.vue';
+import FaultPopup from './FaultPopup.vue';
+import { ErrorItem } from '../data/Data';
 
 export default defineComponent({
   name: 'ErrorExplorer',
   components: {
-    InfoField,
     FaultCard,
+    FaultPopup,
   },
   props: {
     data: {
@@ -58,7 +55,33 @@ export default defineComponent({
   },
   setup(props) {
     const currentMachine = ref<string>(props.machines[0].name);
-    return { currentMachine };
+    const currentCard = ref<ErrorItem>({
+      _id: 0,
+      name: '',
+      description: '',
+      solution: '',
+      images: [],
+      type: 'electrical',
+      machine: {
+        _id: 0,
+        name: '',
+      },
+    });
+    const isPopupOpened = ref<boolean>(false);
+    const setIsPopupOpened = (isOpened: boolean): void => {
+      isPopupOpened.value = isOpened;
+    };
+    const onCardClick = (card: ErrorItem): void => {
+      currentCard.value = card;
+      setIsPopupOpened(true);
+    };
+    return {
+      currentMachine,
+      currentCard,
+      isPopupOpened,
+      setIsPopupOpened,
+      onCardClick,
+    };
   },
 });
 </script>
@@ -118,8 +141,5 @@ export default defineComponent({
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.explorer__note {
 }
 </style>

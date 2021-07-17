@@ -5,9 +5,9 @@ interface Machine {
   name: string;
 }
 
-interface ErrorItem {
+export interface ErrorItem {
   _id: number;
-  heading: string;
+  name: string;
   description: string;
   solution: string;
   type: ErrorType;
@@ -25,7 +25,7 @@ export const Machines: Machine[] = [
 export const Data: ErrorItem[] = [
   {
     _id: 0,
-    heading: 'qwer',
+    name: 'qwer',
     description: 'asdf',
     solution: 'zxcv',
     type: 'mechanical',
@@ -39,7 +39,7 @@ export const Data: ErrorItem[] = [
   },
   {
     _id: 1,
-    heading: 'ячсм',
+    name: 'ячсм',
     description: 'фыва',
     solution: 'qwerty',
     type: 'electrical',
@@ -53,7 +53,7 @@ export const Data: ErrorItem[] = [
   },
   {
     _id: 2,
-    heading: 'qwerty',
+    name: 'qwerty',
     description:
       'В разделе "Диагностика" отображается ошибки "Нельзя автоматически перемещать упоры вверх т.к. оси Z или ось U находятся не в исходном положении" и "Сбой двигателя: проверить двигателя в распределительном шкафу". Станок при этом не начинает выполнять программу, с панели вручную оси не двигаются.',
     solution: 'qwerty',
@@ -77,8 +77,7 @@ export const Data: ErrorItem[] = [
   },
   {
     _id: 2,
-    heading:
-      'Нельзя автоматически перемещать упоры вверх т.к. оси Z или ось U находятся не в исходном положении',
+    name: 'Нельзя автоматически перемещать упоры вверх т.к. оси Z или ось U находятся не в исходном положении',
     description:
       'Не срабатывает датчик на верхний уровень или на нижний. 1) Если датчик не срабатывает на верхний уровень, вероятно, датчику не хватает чувствительности. Такое может происходить из-за смены краски на другую. 2) Если датчик не срабатывает на нижний уровень, значит он всегда в активном состоянии (видит верхний уровень). Это может случаться из-за высокой чувствительности или из-за большого "кипения" краски в баке.',
     solution: 'qwerty',
@@ -91,7 +90,7 @@ export const Data: ErrorItem[] = [
   },
   {
     _id: 2,
-    heading: 'вапр',
+    name: 'вапр',
     description: 'вапр',
     solution: 'авпр',
     type: 'electrical',

@@ -1,34 +1,47 @@
 <template>
-  <div class="item">
-    <p class="item__heading">{{ heading }}</p>
-    <div v-if="content && !images" class="item__content">{{ content }}</div>
-    <div v-else class="item__images" :class="setGridClass(images.length)">
-      <template v-for="(image, index) in images" :key="index">
-        <img :src="image" class="item__image" :class="setImageClass(index)" />
-      </template>
+  <div class="gallery__images" :class="setGridClass(images.length)">
+    <div
+      v-for="(image, index) in images"
+      :key="index"
+      class="gallery__image-wrapper"
+      :class="[
+        isOpened[`img${index}`] && 'gallery__image-wrapper_format_popup',
+        setImageClass(index),
+      ]"
+      @click.self="setIsOpened(index, false)"
+    >
+      <img
+        :src="image"
+        class="gallery__image"
+        :class="isOpened[`img${index}`] && 'gallery__image_format_popup'"
+        @click="setIsOpened(index, true)"
+      />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: 'InfoField',
+  name: 'ImageGallery',
   props: {
-    heading: {
-      type: String,
-      required: true,
-    },
-    content: {
-      type: String,
-      required: false,
-    },
     images: {
       type: Array,
-      required: false,
+      required: true,
+      default: [],
     },
   },
-  setup() {
+  setup(props) {
+    const getImagesStatusObject = (length: number): Object => {
+      const result: { [index: string]: boolean } = {};
+      for (let i = 0; i < length; i++) {
+        result[`img${i}`] = false;
+      }
+      console.log(result);
+      return result;
+    };
+
+    const isOpened = ref<Object>(getImagesStatusObject(props.images.length));
     const setGridClass = (size: number) => {
       return `grid${size}`;
     };
@@ -37,42 +50,36 @@ export default defineComponent({
       return `img${index + 1}`;
     };
 
+    const setIsOpened = (index: string, value: boolean) => {
+      const copy: { [index: string]: any } = { ...isOpened.value };
+      copy[`img${index}`] = value;
+      isOpened.value = copy;
+    };
+
     return {
+      isOpened,
       setGridClass,
       setImageClass,
+      setIsOpened,
     };
   },
 });
 </script>
-<style>
-.item {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  max-width: 640px;
-  background: #2e2e2e;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  padding: 11px;
+<style scoped>
+@keyframes opacity {
+  from {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    width: 80%;
+    height: auto;
+    opacity: 1;
+  }
 }
 
-.item__heading {
-  margin: 0;
-  font-size: 21px;
-  margin-bottom: 10px;
-}
-
-.item__content {
-  width: 100%;
-  font-size: 14px;
-  background: #353535;
-  box-sizing: border-box;
-  padding: 7px;
-}
-
-.item__images {
+.gallery__images {
   max-width: 100%;
   justify-content: center;
   align-content: center;
@@ -81,22 +88,48 @@ export default defineComponent({
   display: grid;
   gap: 10px;
 }
+
 /* 1-2 */
-.item__images_size_xs {
+.gallery__images_size_xs {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-template-rows: 300px;
   grid-auto-rows: 300px;
 }
 /* 3-4 */
-.item__images_size_s {
+.gallery__images_size_s {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 100px);
 }
 
-.item__image {
+.gallery__image-wrapper {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: 0.5s ease-in;
+}
+
+.gallery__image-wrapper_format_popup {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery__image_format_popup {
+  width: 80%;
+  height: auto;
+  animation: opacity 0.4s ease-out;
 }
 
 .grid1 {
