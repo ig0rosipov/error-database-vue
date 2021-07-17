@@ -124,12 +124,14 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .gallery__image_format_popup {
   width: 80%;
   height: auto;
   animation: opacity 0.4s ease-out;
+  cursor: auto;
 }
 
 .grid1 {
