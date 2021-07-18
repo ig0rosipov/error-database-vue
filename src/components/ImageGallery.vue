@@ -73,7 +73,7 @@ export default defineComponent({
     opacity: 0;
   }
   to {
-    width: 80%;
+    width: 70%;
     height: auto;
     opacity: 1;
   }
@@ -128,7 +128,7 @@ export default defineComponent({
 }
 
 .gallery__image_format_popup {
-  width: 80%;
+  width: 70%;
   height: auto;
   animation: opacity 0.4s ease-out;
   cursor: auto;
