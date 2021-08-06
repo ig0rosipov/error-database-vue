@@ -1,31 +1,31 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import ErrorExplorer from '../components/ErrorExplorer.vue';
-import CreateNotePage from '../components/CreateNotePage.vue';
+import FaultExplorer from '../components/FaultExplorer.vue';
+import FaultCreator from '../components/FaultCreator.vue';
 import { Machines, Data } from '../data/Data';
 const routes = [
   {
     path: '/electrical',
-    component: ErrorExplorer,
+    component: FaultExplorer,
     name: 'electrical-page',
     props: {
-      data: Data.filter((item) => item.type === 'electrical'),
+      data: Data.filter((item) => item.type === 'Electrical'),
       machines: Machines,
       title: 'Электрика',
     },
   },
   {
     path: '/mechanical',
-    component: ErrorExplorer,
+    component: FaultExplorer,
     name: 'mechanical-page',
     props: {
-      data: Data.filter((item) => item.type === 'mechanical'),
+      data: Data.filter((item) => item.type === 'Mechanical'),
       machines: Machines,
       title: 'Механика',
     },
   },
   {
     path: '/create',
-    component: CreateNotePage,
+    component: FaultCreator,
     name: 'create-note-page',
   },
 ];

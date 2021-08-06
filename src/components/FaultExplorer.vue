@@ -61,7 +61,7 @@ export default defineComponent({
       description: '',
       solution: '',
       images: [],
-      type: 'electrical',
+      type: 'Electrical',
       machine: {
         _id: 0,
         name: '',
@@ -93,7 +93,6 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
   width: 100%;
-  /* max-width: 640px; */
   box-sizing: border-box;
   padding: 40px 0;
 }

@@ -65,6 +65,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <style scoped>
 @keyframes opacity {
   from {
